@@ -3,6 +3,7 @@
 // grab our packages
 var gulp   = require('gulp'),
     jshint = require('gulp-jshint'),
+    jslint = require('gulp-jslint'),
     sass   = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
@@ -18,6 +19,12 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+// configure the jshint task
+gulp.task('jslint', function() {
+  return gulp.src('source/javascript/**/*.js')
+    .pipe(jslint())
+});
+
 // merge sass
 gulp.task('build-css', function() {
   return gulp.src('source/scss/**/*.scss')
@@ -29,7 +36,7 @@ gulp.task('build-css', function() {
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-  gulp.watch('source/javascript/**/*.js', ['jshint']);
+  gulp.watch('source/javascript/**/*.js', ['jslint']);
   gulp.watch('source/scss/**/*.scss', ['build-css']);
 });
 
